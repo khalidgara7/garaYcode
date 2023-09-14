@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1694651133 source:c:\users\user\desktop\garaycode\challenge3\main.c
+	<stdio.h>
+	<stdlib.h>
+
