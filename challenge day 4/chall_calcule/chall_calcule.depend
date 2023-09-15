@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1694794664 source:c:\users\youcode\desktop\projets\garaycode\challenge day 4\chall_calcule\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
