@@ -10,13 +10,15 @@ int main()
     int A, M, nbr;
     A = 0; M = 0; nbr = 0;
 
-    printf("entrer un nmbr :");
-    scanf("%d",&nbr);
+
       while(nbr != 0)
       {
-          do{scanf("%d"&nbr);
+          do
+            {
+                scanf("%d"&nbr);
           if(nmb >100)
-            printf("entrer un serie \n")};
+            printf("entrer un serie \n");
+            }
 
       while (nmb>100)
         A += nbr ;

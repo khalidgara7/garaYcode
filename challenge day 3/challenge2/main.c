@@ -11,7 +11,7 @@ int main()
     printf("entrer un nmbre entier  :");
     scanf("%d",&numb);
     p = 1;
-     for(i = 2; i<= numb/2; i++) //
+     for(i = 2; i<= numb; i++) //
      {
          if(numb%i == 0) // qoutient numb sur i=2
          {
