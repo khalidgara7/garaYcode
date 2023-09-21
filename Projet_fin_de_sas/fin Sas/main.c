@@ -1,12 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// --------------- stractures--------------
+
+            typedef struct {
+                int day;
+                int heures;
+                int minutes;
+            }Deadline;
+
+            typedef struct  {
+                int id_unique;
+                char titre[20];
+                char description[50];
+                int statut;
+                Deadline deadline;
+
+            }Tache;
+
 
 void func_menu();
-void Ajouter();
-void Ajouter_tache( ajout_tache );
+
+void Ajouter_tache();
 void Ajouter_pleusier_tache();
-void retour();
+
+
+int index = 0;
+Tache taches[100];
 
 int main()
 {
@@ -15,31 +35,13 @@ int main()
 }
 
 
-            // --------------- stractures--------------
-
-
-            typedef struct  {
-                int id_unique,deadline;
-                char titre[20];
-                char description[50];
-                char statut[30];
-
-            }ajout_tache;
-
-            typedef struct {
-                int day;
-                int heures;
-                int minutes;
-
-
-
-            }deadline;
 
 //  ----------- functions-------------
 
     void func_menu(){
         int number ;
     do{
+        system("cls");
         printf("1-Ajouter un tache \n2-Ajouter pleusieur taches\n");
         printf("3-Affichier laliste de toutes tache \n4-Modifier un tache\n");
         printf("5-Supprimer une tache \n6-recherche des taches \n7-les statistique");
@@ -47,96 +49,94 @@ int main()
         printf("\n\n *_veuilliez choisir une operation sur la liste :");
         scanf("%d",&number);
 
-      }
+        switch(number){
+            case 1 : Ajouter_tache(); break;
+            case 2 : Ajouter_pleusier_tache();break;
+            case 3 : afficher();break;
 
-        while(number > 0 || number < 8);
-                switch(number){
-                case 1 : Ajouter();
-                    break;
-                }
+        }
 
-            }
+      }while(number != 0);
 
+    }
 
-    void Ajouter(){
+    void Ajouter_tache(){
 
-        int a;
+        printf(" ---------------- ajouter une nouvelle tache------------------\n");
+        again:
+        printf("donner id de tache :");
+        scanf("%d",&taches[index].id_unique);
+
+        int test = isExist(taches[index].id_unique);
+        if (test != 0){
+            printf("deja exist!\n");
+            goto again ;
+        }
+
+        printf("donner le titre de tache :");
+        scanf("%s", taches[index].titre);
+
+        printf("donner la descreption de tache :");
+        fgets(taches[index].description, 50, stdin); // fgets lire l'espaces
+        gets(taches[index].description);
+
         do{
-        printf(" ajouter une tache :");
-        printf("ajouter pleusieur taches :");
-        scanf("%d",&a);
+            printf("choisir le status de la tache ");
+            printf("\n 1-a realiser \n 2-en cours de realisation\n 3-finalisee \n :");
+            scanf("%d", &taches[index].statut);
 
-        }while(a <0 || a >= 2 );
-        switch(a)
-        {
-            case 1 :
-                 Ajouter_tache();
-            break;
-            case 2 :
-                 Ajouter_pleusier_tache();
-            break;
-        }
+        } while (taches[index].statut > 3 || taches[index].statut < 1);
 
+
+
+
+        printf("\nla tache est bien Ajouter\n");
+        sleep(2);
+        index++;
     }
 
-    void Ajouter_tache()
-    {
-        int tache;
-        ajout_tache ajout;
-                do
-                {
-                    printf("\n entrer id de tache :");
-                    scanf("%d",&ajout.id_unique);
-
-                    printf("\n entrer la titre de tache : \n");
-                    scanf("%d",&ajout.titre);
-
-                    printf("\n entrer la description de tache : \n");
-                    scanf("%d",&ajout.description);
-
-                    printf("\n entrer la deadline de tache : \n");
-                    scanf("%d",&ajout.deadline);
-
-                    printf("\n entrer la status de tache : \n");
-                    scanf("%d",&ajout.statut);
-                }while(tache );
-
-    }
-
-    void Ajouter_pleusier_tache()
-        {
+  void Ajouter_pleusier_tache(){
             int PA;
-            printf("ajouter pleusieurs taches ?");
+            printf("donner le nombre des taches que vous voullez ajouter :");
             scanf("%d", &PA);
-         while(PA--)
-            Ajouter_tache();
+            while(PA--)
+                Ajouter_tache();
 
         }
 
+void afficher (){
+    int choix;
+    printf("--------------- la liste des taches-----------------");
 
-        void retour ()
+    if(index == 0) {
+        printf("\nla list et vide!!!\n");
+        sleep(4);
+    } else {
+
+        for(int i = 0; i < index; i++)
         {
-        int R;
-        do {
-            printf("\n\n \t\t Pour Retour au menu principal appuyez sur 1 \n");
-            printf("\t\t Pour Quittez le programme appuyez sur 2 \n");
-            scanf("%d", &R);
-        }while(R <=1 && R > 2 );
-
-            switch (R)
-            {
-
-                case 1:
-                    func_menu();
-                    break;
-
-                case 2:
-                    printf(" quitter !!");
-                    break;
-
-            }
-
+            printf("%d , %s, %s ,%s\n",taches[i].id_unique,taches[i].titre,taches[i].description,
+                   taches[i].statut == 1 ?   "a realiser"
+                          : taches[i].statut == 2 ? "en cours de realisation"
+                                              : "finalisee");
         }
+        printf("0- return au menu \n:");
+        scanf("%d", &choix);
+    }
+}
+// function isExist() pour verifier que le code dans le tablou ou bien no .
+int isExist(int id){
+   int i ;
+    int test = 0 ;
+    for (i = 0 ; i < index ; i++)
+        {
+            if (taches[i].id_unique == id)
+                {
+                  test++;
+                }
+        }
+        return test ;
+}
 
 
 
